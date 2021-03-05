@@ -3,7 +3,7 @@ package status
 type Type string
 
 const (
-	Active Type = "active"
-	Done = "done"
-	Delete = "deleted"
+	InProgress Type = "in-progress"
+	UnderReview = "under-review"
+	Blocked = "Blocked"
 )

@@ -17,6 +17,7 @@ func Init() {
 	}
 
 	DB = db
+	db.LogMode(true)
 
 	fmt.Printf("Success: Connected to DB!!\n")
 }

@@ -4,7 +4,6 @@ import (
 	"github.com/todo/dto"
 	"github.com/todo/logic"
 	"github.com/todo/types/apiFunc"
-	"github.com/todo/types/status"
 	"net/http"
 )
 
@@ -13,7 +12,9 @@ var CreateTodo apiFunc.APIFunc = func(validatedRequest interface{})(statusCode i
 	todoDTO := &dto.Todo{
 		Name:        req.Name,
 		Description: req.Description,
-		Status:      status.Active,
+		Status:      req.Status,
+		Priority:    req.Priority,
+		DueDate:     req.DueDate,
 	}
 	newTodo, err := logic.CreateTodo(todoDTO)
 	if err != nil {
@@ -30,6 +31,8 @@ var UpdateTodo apiFunc.APIFunc = func(validatedRequest interface{})(statusCode i
 		Name:        req.Name,
 		Description: req.Description,
 		Status:      req.Status,
+		Priority:    req.Priority,
+		DueDate:     req.DueDate,
 	}
 	updatedTodo, err := logic.UpdateTodo(todoDTO)
 	if err != nil {
@@ -40,7 +43,8 @@ var UpdateTodo apiFunc.APIFunc = func(validatedRequest interface{})(statusCode i
 }
 
 var GetTodos apiFunc.APIFunc = func(validatedRequest interface{})(statusCode int, output interface{}) {
-	todos, err := logic.GetTodos()
+	req := validatedRequest.(*dto.GetTodosRequest)
+	todos, err := logic.GetTodos(req.Status, req.Priority, req.From, req.Limit, req.Offset)
 	if err != nil {
 		return http.StatusInternalServerError, nil
 	}
