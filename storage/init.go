@@ -17,6 +17,7 @@ func Init() {
 	}
 
 	DB = db
+	db = db.Set("gorm:auto_preload", true)
 	db.LogMode(true)
 
 	fmt.Printf("Success: Connected to DB!!\n")

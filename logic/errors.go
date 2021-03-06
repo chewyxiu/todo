@@ -1,7 +1,11 @@
 package logic
 
-import "errors"
+import (
+  "net/http"
+)
 
 var (
-  ErrInvalidTimeFormat = errors.New("invalid time format")
+  ErrInvalidTimeFormat = ApiError(http.StatusBadRequest, "invalid time format")
+  ErrInvalidUser = ApiError(http.StatusBadRequest,"invalid user")
+  ErrNotFriend = ApiError(http.StatusBadRequest,"you can only view friend's todo list")
 )

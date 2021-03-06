@@ -14,6 +14,7 @@ type Todo struct {
 	Name            string
 	Description     string
 	IsDeleted       bool
+	IsPrivate       bool
 	Status          status.Type
 	Priority        uint
 	DueDate        time.Time
@@ -84,6 +85,8 @@ func (t *Todo) ToDTO() *dto.Todo {
 		Status:   t.Status,
 		Priority: t.Priority,
 		DueDate:  timeValue(t.DueDate),
+		IsPrivate: t.IsPrivate,
+		IsDeleted:  t.IsDeleted,
 	}
 }
 
